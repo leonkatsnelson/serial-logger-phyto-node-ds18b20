@@ -5,7 +5,7 @@ import os
 import glob
 import argparse
 
-DATETIME_FMT = "%Y-%m-%dT%H:%M:%S:%f"
+DATETIME_FMT = "%Y-%m-%dT%H:%M:%S.%f"
 
 def int_from_bytes(xbytes: bytes) -> int:
     return int.from_bytes(xbytes, 'big')
