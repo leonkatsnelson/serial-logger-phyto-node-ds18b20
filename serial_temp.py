@@ -5,6 +5,8 @@ import os
 import glob
 import argparse
 
+DATETIME_FMT = "%Y-%m-%dT%H:%M:%S:%f"
+
 def int_from_bytes(xbytes: bytes) -> int:
     return int.from_bytes(xbytes, 'big')
 
@@ -35,7 +37,7 @@ def main():
             return
 
     header = ["timestamp", "T1_leaf", "T2_leaf", "T1_air", "T2_air"]  # Headers for the CSV file
-    start_timestamp = datetime.now().strftime("%Y-%m-%d_%H:%M:%S:%f")
+    start_timestamp = datetime.now().strftime(DATETIME_FMT)
     last_csv_time = datetime.now()
 
     while True:  # Loop to read the data from the ports
@@ -58,7 +60,7 @@ def main():
             print(T1, T2, T3, T4)
 
             # Timestamp for the data
-            timestamp = datetime.now().strftime("%Y-%m-%d_%H:%M:%S:%f")
+            timestamp = datetime.now().strftime(DATETIME_FMT)
 
             # Create a directory for the file prefix
             specific_directory = directory
@@ -66,7 +68,7 @@ def main():
             current_time = datetime.now()
             if current_time.hour in {0, 14} and current_time.hour != last_csv_time.hour:  # Create new file every 12 hours
                 last_csv_time = datetime.now()
-                start_timestamp = datetime.now().strftime("%Y-%m-%d_%H:%M:%S:%f")
+                start_timestamp = datetime.now().strftime(DATETIME_FMT)
                 print("New file: ", start_timestamp)
 
             if not os.path.exists(specific_directory):
